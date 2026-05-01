@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ITS JUST FOR YOU💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    overflow: hidden;
+    color: white;
+}
+
+/* INTRO SCREEN */
+#intro {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    animation: fadeOut 3s ease forwards;
+    animation-delay: 3s;
+}
+
+/* MAIN CONTAINER */
+.container {
+    position: relative;
+    z-index: 2;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.95);
+    color: black;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 320px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    animation: fadeIn 1.5s ease;
+}
+
+/* STEPS */
+.step { display: none; }
+.active { display: block; }
+
+h1 { color: #ff4e50; }
+
+img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 15px 0;
+    object-fit: cover;
+    border: 3px solid #ff4e50;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #ff4e50;
+    color: white;
+    cursor: pointer;
+}
+
+/* HEARTS */
+.heart {
+    position: absolute;
+    color: rgba(255, 78, 80, 0.4);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+    }
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(30px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeOut {
+    to {opacity: 0; visibility: hidden;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- CINEMATIC INTRO -->
+<div id="intro">
+    For Someone Special...
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container" id="main">
+
+<div class="card">
+
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+        <h1>Hey 👀</h1>
+        <p>I made something for you...</p>
+        <button onclick="nextStep(2)">Continue</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+        <h1>Look Closely 💖</h1>
+        <KOD_5916 copy-.jpg">
+        <p>Someone really special 😊</p>
+        <button onclick="nextStep(3)">Next</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+        <h1>Happy Birthday, <span id="BINDU">BINDU</span> 🎂</h1>
+        <p>You make things feel lighter ✨</p>
+        <p>And honestly... that’s rare 😊</p>
+        <button onclick="finalMsg()">One Last Thing</button>
+    </div>
+
+</div>
+</div>
+
+<script>
+
+/* SHOW MAIN AFTER INTRO */
+setTimeout(() => {
+    document.getElementById("main").style.display = "flex";
+}, 3000);
+
+/* STEP SWITCH */
+function nextStep(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+}
+
+/* FINAL MESSAGE */
+function finalMsg() {
+    alert("I didn’t just make this randomly...\n\nYou’re kinda special to me 💖");
+}
+
+/* FLOATING HEARTS */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 10 + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+setInterval(createHeart, 400);
+
+</script>
+
+</body>
+</html>
