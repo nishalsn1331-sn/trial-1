@@ -1,0 +1,127 @@
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Surprise for BINDU! 🎁</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        body {
+            margin: 0; padding: 0; background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%; animation: gradientShift 15s ease infinite;
+            font-family: 'Poppins', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .container { text-align: center; background: rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); max-width: 500px; }
+        
+        #herPhoto { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin: 20px 0; animation: glow 2s ease-in-out infinite alternate, float 3s ease-in-out infinite; box-shadow: 0 0 30px rgba(255,255,255,0.8); }
+        @keyframes glow { from { box-shadow: 0 0 20px rgba(255,255,255,0.6); } to { box-shadow: 0 0 40px rgba(255,255,255,1); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        
+        h1 { color: white; font-size: 2.5em; margin: 0 0 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); animation: slideIn 1s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .quiz { display: none; }
+        .question { color: white; font-size: 1.3em; margin: 20px 0; opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        button { background: linear-gradient(45deg, #ff6b6b, #feca57); color: white; border: none; padding: 15px 30px; margin: 10px; font-size: 1.1em; border-radius: 50px; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        button:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        
+        #birthdayMsg { display: none; color: white; font-size: 1.4em; animation: bounceIn 1s ease-out; }
+        @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.5); } 50% { transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
+        
+        .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <img id="herPhoto" src="https://via.placeholder.com/200x200/ffb6c1/ffffff?text=[Her+Face]" alt="Her Photo">
+        <h1>Hey BINDU! 👋</h1>
+        
+        <div id="startScreen">
+            <p style="color: white; font-size: 1.2em;">Quick quiz to unlock your birthday surprise... Ready? 😏</p>
+            <button onclick="startQuiz()">Let's Go! 🚀</button>
+        </div>
+        
+        <div id="quiz" class="quiz">
+            <div class="question" id="q1">Q1: Our best memory was...? <br>
+                <button onclick="answer(1,0)">Late night drives</button>
+                <button onclick="answer(1,1)">Pizza fights 😂</button>
+                <button onclick="answer(1,2)">Stargazing</button>
+            </div>
+            <div class="question" id="q2" style="display:none;">Q2: My fave thing about you? <br>
+                <button onclick="answer(2,0)">Your laugh</button>
+                <button onclick="answer(2,1)">That smile</button>
+                <button onclick="answer(2,2)">Your vibe</button>
+            </div>
+            <div class="question" id="q3" style="display:none;">Q3: Perfect birthday for you? <br>
+                <button onclick="answer(3,0)">Beach day</button>
+                <button onclick="answer(3,1)">Concert</button>
+                <button onclick="answer(3,2)">Cozy night</button>
+            </div>
+        </div>
+        
+        <div id="birthdayMsg">
+            <h1>🎉 HAPPY BIRTHDAY! 🎂</h1>
+            <p>Happy Birthday I wish you all the best in my life may all ur dream come true, You're still my favorite person, ex or not. Crushing forever but for you Iwill be always as a GOOD FRIEND❤️ . <br>
+            Have the best day—you deserve it all! 💖<br><br>
+            [LOVE YOU FOREVER as you want me to love😊]</p>
+            <button onclick="restart()">wanna see again </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        let currentQ = 1;
+        
+        function startQuiz() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            document.getElementById('q1').style.animationDelay = '0s';
+        }
+        
+        function answer(q, choice) {
+            document.getElementById('q' + q).style.display = 'none';
+            currentQ++;
+            if (currentQ <= 3) {
+                document.getElementById('q' + currentQ).style.display = 'block';
+                document.getElementById('q' + currentQ).style.animationDelay = '0.3s';
+            } else {
+                showBirthday();
+            }
+        }
+        
+        function showBirthday() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('birthdayMsg').style.display = 'block';
+            confetti({ particleCount: 150, spread: 75, origin: { y: 0.5 } });
+            createHearts();
+        }
+        
+        function createHearts() {
+            const hearts = document.getElementById('hearts');
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animation = 'floatUp 3s linear forwards';
+                    hearts.appendChild(heart);
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 100);
+            }
+        }
+        
+        // Add floating animation
+        const style = document.createElement('style');
+        style.textContent = '@keyframes floatUp { to { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }';
+        document.head.appendChild(style);
+        
+        function restart() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
